@@ -1,6 +1,10 @@
 // SPDX-License-Identifier: PropietarioUnico
 pragma solidity ^0.8.28;
 
+/**
+ * @title AccessControl
+ * @notice Control básico de roles para todo el sistema (DAO, LoanManager, Governance, etc.).
+ */
 contract AccessControl {
     enum Role { NONE, ADMIN, TESORERO, SECRETARIO, GUARDIA, MIEMBRO }
 
@@ -38,10 +42,16 @@ contract AccessControl {
         _;
     }
 
+    /**
+     * @notice Asigna un rol a una cuenta (sólo ADMIN).
+     */
     function asignarRol(address _cuenta, Role _rol) external onlyAdmin {
         roles[_cuenta] = _rol;
     }
 
+    /**
+     * @notice Revoca el rol de una cuenta (sólo ADMIN).
+     */
     function revocarRol(address _cuenta) external onlyAdmin {
         roles[_cuenta] = Role.NONE;
     }
